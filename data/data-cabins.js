@@ -2,7 +2,7 @@ import { supabaseUrl } from "../services/supabase";
 
 const imageUrl = `${supabaseUrl}/storage/v1/object/public/cabin-images/`;
 
-export const cabins = [
+export const Cabins = [
   {
     name: "001",
     maxCapacity: 2,

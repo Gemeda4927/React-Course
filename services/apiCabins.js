@@ -14,10 +14,6 @@ export async function getCabins() {
       );
     }
 
-    console.log(
-      "Cabins successfully loaded:",
-      data
-    );
     return data;
   } catch (err) {
     console.error(
@@ -31,9 +27,9 @@ export async function getCabins() {
 // Function to create a new cabin, and optionally upload an image
 export async function createCabin(newCabin) {
   const imageName = newCabin.image
-    ? `${Math.random()}-${
+    ? `${Date.now()}-${
         newCabin.image.name
-      }`.replaceAll("/", "")
+      }`.replaceAll("/", "") // Use timestamp for uniqueness
     : null;
 
   const imagePath = imageName
@@ -97,10 +93,10 @@ export async function updateCabin(updatedCabin) {
     updatedCabin;
 
   const imageName = image
-    ? `${Math.random()}-${image.name}`.replaceAll(
+    ? `${Date.now()}-${image.name}`.replaceAll(
         "/",
         ""
-      )
+      ) // Use timestamp for uniqueness
     : null;
 
   const imagePath = imageName
@@ -121,8 +117,8 @@ export async function updateCabin(updatedCabin) {
       .update({
         ...cleanCabinData,
         ...(image ? { image: imagePath } : {}),
-      }) // Only update image if provided
-      .eq("id", id) // Ensure we're updating the correct cabin
+      })
+      .eq("id", id)
       .select();
 
     if (error) {
@@ -175,6 +171,7 @@ export async function deleteCabin(id) {
     }
 
     console.log("Cabin deleted successfully");
+    return id; // Return the deleted ID
   } catch (err) {
     console.error(
       "An error occurred while deleting the cabin:",

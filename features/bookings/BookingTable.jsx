@@ -1,13 +1,21 @@
 import Menus from "../../ui/Menus"
 import Table from "../../ui/Table"
 import BookingRow from "../bookings/BookingRow"
-import Header from "../../ui/Header"
+import Empty from '../../ui/Empty';
+import {useBookings} from './useBookings';
+import Spinner from '../../ui/Spinner';
+
 
 function BookingTable() {
-  const bookings = [];
-  return (
-    
 
+  const { bookings, count, isLoading } = useBookings();
+
+  if (isLoading) return <Spinner />;
+  if (!bookings) return <Empty resource="booking for now" />;
+
+
+
+  return (
     <Menus>
     <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
       <Table.Header>
@@ -18,7 +26,6 @@ function BookingTable() {
         <div>Amount</div>
         <div></div>
       </Table.Header>
-      //https://github.com/Gemeda4927/React-Course
 
       <Table.Body
         data={bookings}

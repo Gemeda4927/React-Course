@@ -8,7 +8,14 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit() {}
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    console.log("Email:", email);
+    console.log("Password:", password);
+  }
+
 
   return (
     <Form onSubmit={handleSubmit}>

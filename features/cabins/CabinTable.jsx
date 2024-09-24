@@ -1,21 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { getCabins } from "../../services/apiCabins";  // Corrected import path if necessary
-import CabinRow from "./CabinRow";
 
-const Table = styled.div`
-  border: 1px solid var(--color-grey-200);
-  font-size: 1.4rem;
-  background-color: var(--color-grey-0);
-  border-radius: 7px;
-  overflow: hidden;
-`;
+import Spinner from "../../ui/Spinner";
+import CabinRow from "./CabinRow";
+import { useCabins } from "./useCabins";
+import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
+
 
 const TableHeader = styled.header`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
   column-gap: 2.4rem;
   align-items: center;
+
   background-color: var(--color-grey-50);
   border-bottom: 1px solid var(--color-grey-100);
   text-transform: uppercase;
@@ -26,26 +23,29 @@ const TableHeader = styled.header`
 `;
 
 function CabinTable() {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['cabins'],  // Updated the query key for clarity
-    queryFn: getCabins,
-  });
+  const { isLoading, cabins } = useCabins();
+  console.log(cabins)
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isLoading) return <Spinner />;
 
   return (
-    <Table role="table">
-      <TableHeader role="row">
-        <div>Cabin</div>
-        <div>Capacity</div>
-        <div>Price</div>
-        <div>Discount</div>
-      </TableHeader>
-      {data?.map((cabin) => (
-        <CabinRow cabin={cabin} key={cabin.id} />
-      ))}
-    </Table>
+    <Menus>
+
+      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+        <Table.Header>
+          <div></div>
+          <div>Cabin</div>
+          <div>Capacity</div>
+          <div>Price</div>
+          <div>Discount</div>
+          <div></div>
+        </Table.Header>
+        <Table.Body
+          data={cabins}
+          render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
+          />
+      </Table>
+          </Menus>
   );
 }
 

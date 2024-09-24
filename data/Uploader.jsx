@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 import { subtractDates } from "../utils/helpers";
 
 import { bookings } from "./data-bookings";
-import { cabins } from "./data-cabins";
+import { Cabins } from "./data-cabins";
 import { guests } from "./data-guests";
 
 // const originalSettings = {
@@ -21,7 +21,7 @@ async function deleteGuests() {
 }
 
 async function deleteCabins() {
-  const { error } = await supabase.from("cabins").delete().gt("id", 0);
+  const { error } = await supabase.from("Cabins").delete().gt("id", 0);
   if (error) console.log(error.message);
 }
 
@@ -36,7 +36,7 @@ async function createGuests() {
 }
 
 async function createCabins() {
-  const { error } = await supabase.from("cabins").insert(cabins);
+  const { error } = await supabase.from("Cabins").insert(Cabins);
   if (error) console.log(error.message);
 }
 
@@ -48,14 +48,14 @@ async function createBookings() {
     .order("id");
   const allGuestIds = guestsIds.map((cabin) => cabin.id);
   const { data: cabinsIds } = await supabase
-    .from("cabins")
+    .from("Cabins")
     .select("id")
     .order("id");
   const allCabinIds = cabinsIds.map((cabin) => cabin.id);
 
   const finalBookings = bookings.map((booking) => {
     // Here relying on the order of cabins, as they don't have and ID yet
-    const cabin = cabins.at(booking.cabinId - 1);
+    const cabin = Cabins.at(booking.cabinId - 1);
     const numNights = subtractDates(booking.endDate, booking.startDate);
     const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
     const extrasPrice = booking.hasBreakfast
