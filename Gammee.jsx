@@ -5,6 +5,8 @@ function Gammee() {
             Baga nagana dhuftan 
             Baga nagana dhuftan 
             Baga nagana dhuftan 
+            Baga nagana dhuftan 
+            Baga nagana dhuftan 
         </div>
     )
 }
