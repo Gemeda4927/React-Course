@@ -1,7 +1,7 @@
 function Gammee() {
     return (
         <div>
-            
+            Baga nagana dhuftan 
         </div>
     )
 }
