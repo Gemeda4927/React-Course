@@ -9,6 +9,7 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
+import AppLayout from "./ui/AppLayout";
 
 // Import React Query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
