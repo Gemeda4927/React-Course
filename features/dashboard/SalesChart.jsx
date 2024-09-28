@@ -57,3 +57,12 @@ const colors = isDarkMode
       text: "#374151",
       background: "#fff",
     };
+function SalesChart() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default SalesChart
